@@ -72,7 +72,15 @@ function _fpNoise(x, y, channel) {
 var _fpCache = null;
 function _getFp() {
   if (_fpCache) return _fpCache;
-  const gpuPool = [
+  const isMac = (globalThis.__obscura_ua_platform || 'Windows') === 'macOS';
+  const gpuPool = isMac ? [
+    'ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)',
+    'ANGLE (Apple, ANGLE Metal Renderer: Apple M1 Pro, Unspecified Version)',
+    'ANGLE (Apple, ANGLE Metal Renderer: Apple M2, Unspecified Version)',
+    'ANGLE (Apple, ANGLE Metal Renderer: Apple M2 Pro, Unspecified Version)',
+    'ANGLE (Apple, ANGLE Metal Renderer: Apple M3, Unspecified Version)',
+    'ANGLE (Intel Inc., ANGLE Metal Renderer: Intel(R) Iris(TM) Plus Graphics, Unspecified Version)',
+  ] : [
     'ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Direct3D11 vs_5_0 ps_5_0, D3D11)',
     'ANGLE (NVIDIA, NVIDIA GeForce GTX 1660 SUPER Direct3D11 vs_5_0 ps_5_0, D3D11)',
     'ANGLE (NVIDIA, NVIDIA GeForce RTX 2070 SUPER Direct3D11 vs_5_0 ps_5_0, D3D11)',
@@ -86,7 +94,11 @@ function _getFp() {
     'ANGLE (AMD, AMD Radeon RX 5700 XT Direct3D11 vs_5_0 ps_5_0, D3D11)',
     'ANGLE (NVIDIA, NVIDIA GeForce RTX 3080 Direct3D11 vs_5_0 ps_5_0, D3D11)',
   ];
-  const gpuVendorPool = [
+  const gpuVendorPool = isMac ? [
+    'Google Inc. (Apple)','Google Inc. (Apple)','Google Inc. (Apple)',
+    'Google Inc. (Apple)','Google Inc. (Apple)',
+    'Google Inc. (Intel Inc.)',
+  ] : [
     'Google Inc. (NVIDIA)','Google Inc. (NVIDIA)','Google Inc. (NVIDIA)',
     'Google Inc. (Intel)','Google Inc. (Intel)',
     'Google Inc. (AMD)','Google Inc. (AMD)',
