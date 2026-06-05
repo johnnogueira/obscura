@@ -206,6 +206,19 @@ impl ObscuraJsRuntime {
             format!("globalThis.__obscura_ua = '{}';", escaped),
         );
     }
+
+    pub fn set_platform(&mut self, platform: &str, ua_platform: &str, ua_platform_version: &str) {
+        let p = platform.replace('\'', "\\'");
+        let uap = ua_platform.replace('\'', "\\'");
+        let uapv = ua_platform_version.replace('\'', "\\'");
+        let _ = self.runtime.execute_script(
+            "<set-platform>",
+            format!(
+                "globalThis.__obscura_platform='{}';globalThis.__obscura_ua_platform='{}';globalThis.__obscura_ua_platform_version='{}';",
+                p, uap, uapv
+            ),
+        );
+    }
     pub fn evaluate(&mut self, expression: &str) -> Result<serde_json::Value, String> {
         let wrapped = Self::wrap_expression(expression);
         let result = self

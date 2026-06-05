@@ -2354,7 +2354,7 @@ function _registerIframe(iframeEl) {
 globalThis.navigator = {
   get userAgent() { return globalThis.__obscura_ua || "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"; },
   get appVersion() { return this.userAgent.replace('Mozilla/', ''); },
-  language: "en-US", languages: ["en-US","en"], platform: "Linux x86_64",
+  language: "en-US", languages: ["en-US","en"], get platform() { return globalThis.__obscura_platform || "Win32"; },
   onLine: true, cookieEnabled: true, hardwareConcurrency: 8,
   maxTouchPoints: 0,
   vendor: "Google Inc.", product: "Gecko", productSub: "20030107",
@@ -2393,7 +2393,7 @@ globalThis.navigator = {
       {brand: "Not=A?Brand", version: "24"},
     ],
     mobile: false,
-    platform: "Linux",
+    get platform() { return globalThis.__obscura_ua_platform || "Windows"; },
     getHighEntropyValues(hints) {
       return Promise.resolve({
         architecture: "x86",
@@ -2402,8 +2402,8 @@ globalThis.navigator = {
         fullVersionList: [{brand:"Google Chrome",version:"145.0.0.0"},{brand:"Chromium",version:"145.0.0.0"},{brand:"Not=A?Brand",version:"24.0.0.0"}],
         mobile: false,
         model: "",
-        platform: "Linux",
-        platformVersion: "6.8.0",
+        platform: globalThis.__obscura_ua_platform || "Windows",
+        platformVersion: globalThis.__obscura_ua_platform_version || "15.0.0",
         uaFullVersion: "145.0.0.0",
       });
     },
